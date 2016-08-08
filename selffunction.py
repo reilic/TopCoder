@@ -12,3 +12,5 @@ def this():
 
 	for index, value in enumerate(result):
 		print '%d %s' % (index, value)
+
+	print 'test'
