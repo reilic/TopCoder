@@ -9,3 +9,5 @@ def this():
 	#print result
 
 	print "-".join(result)
+
+	print result
