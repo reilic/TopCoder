@@ -1,6 +1,6 @@
 def this():
 	
-	result = []
+	result = ['apple','orange','pear']
 	
 	for i in range(10):
 	
@@ -10,4 +10,5 @@ def this():
 
 	print "-".join(result)
 
-	print result
+	for index, value in enumerate(result):
+		print '%d %s' % (index, value)
