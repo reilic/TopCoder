@@ -1,3 +1,3 @@
-from selffunction import this
+from CodeWars import nb_dig
 
-this()
+print nb_dig(10,1)
