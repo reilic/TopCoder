@@ -12,4 +12,6 @@ def nb_dig(n, d):
 		if i == str(d):
 			count += 1
 
-	print count
+	return count
+
+	#test
