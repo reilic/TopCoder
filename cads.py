@@ -1,6 +1,10 @@
 from sys import argv
+from selffunction import RemoveSpecialChars
 
 doc = []
+getmonth = ''
+getyear = ''
+
 
 def main(argv):
 
@@ -19,6 +23,9 @@ def main(argv):
 		for c in e:
 			if c[0:4] == 'Name':
 				anchor.append(index)
+
+	#print journal template header
+	print ('Account,Fund,Department,Project,BudgetRef,Amount,Descr,LineRef')
 
 	#format for journal upload
 	for a in anchor:
@@ -49,6 +56,7 @@ def parse_anchor(anchor):
 
 	while limit != doc[anchor]:
 
+		#don't load if fund is Unknown or if amount is 0.00
 		if str(doc[fund_anchor]).replace(' ','')[7:14] != 'Unknown' and str(doc[anchor])[73:82].strip() !='0.00':
 			
 			#fund code
@@ -58,7 +66,7 @@ def parse_anchor(anchor):
 			snippet.append(str(doc[deptid_anchor]).replace(' ','')[7:9]+str(doc[anchor])[2:5])
 
 			#project id
-			snippet.append(str(doc[anchor])[5:str(doc[anchor]).index(' ')])		
+			snippet.append(RemoveSpecialChars(str(doc[anchor])[5:str(doc[anchor]).index(' ')]))		
 			
 			#amount
 			snippet.append(str(doc[anchor])[73:82].strip())
@@ -67,15 +75,22 @@ def parse_anchor(anchor):
 
 	return snippet
 
+
 def format_for_upload(source):
 	
 	#journal upload format
 	#account, fund, dept, project,budget ref,amount, descr, line ref
 
+	#find month/year
+	getmonth = str(doc[2])[18:20].strip()
+	getyear = str(doc[2])[21:24].strip()
+
 	for i in range(0,len(source))[::4]:
 
-		print ('%s,%s,%s,%s,,%s,descr,lineref') % (5312, 
+		print ('%s,%s,%s,%s,,%s,ITS CADS %s %s,ITS-CADS') % (5312, 
 							str(source[i]),
 							str(source[i+1]),
 							str(source[i+2]),
-							str(source[i+3]))
+							str(source[i+3]),
+							getmonth,
+							'20'+getyear)
