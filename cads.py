@@ -2,11 +2,10 @@ from sys import argv
 
 doc = []
 
-def loadfile(argv):
+def main(argv):
 
 	script, filename = argv
 	
-
 	#List of lines that start with "Name"
 	anchor =[] 
 
@@ -16,43 +15,31 @@ def loadfile(argv):
 			doc.append(line.splitlines())
 
 	#find anchors for the lines that start with Name, and add into anchor[]
-	for index,e in enumerate(doc[:30]):
+	for index,e in enumerate(doc[::]):
 		for c in e:
 			if c[0:4] == 'Name':
 				anchor.append(index)
 
+	#format for journal upload
 	for a in anchor:
 		format_for_upload(parse_anchor(a))
 
 	fp.close()
 
-def format_for_upload(source):
-	print source
-	print source[1:]
-	#journal upload format
-	#account, fund, dept, project,budget ref,amount, descr, line ref
-
-	#account, and fund
-	print ('%s,%s,') % (5312, str(source[0])),
-
-	for i in source[1:]:
-
-		print ('%s,') % i,
-
-#	return source
-
 def parse_anchor(anchor):
 	snippet = []
-	fund_code =''
+	
+	fund_code = ''
 	deptid = ''
 
-	#fund code
-	fund_code = str(doc[anchor-3]).replace(' ','')[7:8]
-	snippet.append(fund_code) 
+	fund_anchor = ''
+	deptid_anchor = ''
+
+	#fund code anchor
+	fund_anchor = anchor-3
 	
-	#First 2 digits of deptid
-	deptid = str(doc[anchor-2]).replace(' ','')[7:9]
-	snippet.append(deptid) 
+	#set anchor for First 2 digits of deptid
+	deptid_anchor = anchor-2
 	
 	#find the dotted line 
 	limit = doc[anchor+2]
@@ -61,16 +48,34 @@ def parse_anchor(anchor):
 	anchor = anchor + 3
 
 	while limit != doc[anchor]:
-		#last 3 digits of department code
-		snippet.append(str(doc[anchor])[2:5])
 
-		#project id
-		
-		snippet.append(str(doc[anchor])[5:str(doc[anchor]).index(' ')])		
-		
-		#amount
-		snippet.append(str(doc[anchor])[73:82].strip())
+		if str(doc[fund_anchor]).replace(' ','')[7:14] != 'Unknown' and str(doc[anchor])[73:82].strip() !='0.00':
+			
+			#fund code
+			snippet.append(str(doc[fund_anchor]).replace(' ','')[7:8])
+
+			#department code
+			snippet.append(str(doc[deptid_anchor]).replace(' ','')[7:9]+str(doc[anchor])[2:5])
+
+			#project id
+			snippet.append(str(doc[anchor])[5:str(doc[anchor]).index(' ')])		
+			
+			#amount
+			snippet.append(str(doc[anchor])[73:82].strip())
 
 		anchor += 1
 
 	return snippet
+
+def format_for_upload(source):
+	
+	#journal upload format
+	#account, fund, dept, project,budget ref,amount, descr, line ref
+
+	for i in range(0,len(source))[::4]:
+
+		print ('%s,%s,%s,%s,,%s,descr,lineref') % (5312, 
+							str(source[i]),
+							str(source[i+1]),
+							str(source[i+2]),
+							str(source[i+3]))

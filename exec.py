@@ -1,7 +1,7 @@
 from sys import argv
 from CodeWars import nb_dig
-from cads import loadfile
+from cads import main
 
 #print nb_dig(10,1)
 
-loadfile(argv)
+main(argv)
