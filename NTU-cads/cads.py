@@ -4,6 +4,7 @@ from selffunction import RemoveSpecialChars
 doc = []
 getmonth = ''
 getyear = ''
+total_amount = 0
 
 def main(argv):
 
@@ -31,7 +32,7 @@ def main(argv):
 		format_for_upload(parse_anchor(a))
 
 	#calculate offsetting amount in journal upload
-	
+	print ('Account,Fund,Department,Project,,-%s,ITS CADS %s %s,ITS-CADS') % (total_amount, getmonth, '20'+getyear)
 
 	fp.close()
 
@@ -56,6 +57,8 @@ def parse_anchor(anchor):
 	#start from first GL combo
 	anchor = anchor + 3
 
+	global total_amount
+
 	while limit != doc[anchor]:
 
 		#don't load if fund is Unknown or if amount is 0.00
@@ -71,6 +74,7 @@ def parse_anchor(anchor):
 			snippet.append(RemoveSpecialChars(str(doc[anchor])[5:str(doc[anchor]).index(' ')]))		
 			
 			#amount
+			total_amount += float(str(doc[anchor])[73:82].strip())
 			snippet.append(str(doc[anchor])[73:82].strip())
 
 		anchor += 1
@@ -82,7 +86,10 @@ def format_for_upload(source):
 	#journal upload format
 	#account, fund, dept, project,budget ref,amount, descr, line ref
 
-	#find month/year
+	#find month/year using global variable
+	global getmonth
+	global getyear
+
 	getmonth = str(doc[2])[18:20].strip()
 	getyear = str(doc[2])[21:24].strip()
 
