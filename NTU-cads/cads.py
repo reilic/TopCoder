@@ -5,7 +5,6 @@ doc = []
 getmonth = ''
 getyear = ''
 
-
 def main(argv):
 
 	script, filename = argv
@@ -27,9 +26,12 @@ def main(argv):
 	#print journal template header
 	print ('Account,Fund,Department,Project,BudgetRef,Amount,Descr,LineRef')
 
-	#format for journal upload
+	#print all lines in the format for journal upload
 	for a in anchor:
 		format_for_upload(parse_anchor(a))
+
+	#calculate offsetting amount in journal upload
+	
 
 	fp.close()
 
@@ -74,7 +76,6 @@ def parse_anchor(anchor):
 		anchor += 1
 
 	return snippet
-
 
 def format_for_upload(source):
 	
