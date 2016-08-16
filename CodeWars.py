@@ -15,3 +15,14 @@ def nb_dig(n, d):
 	return count
 
 	#test
+
+#Money,Money,Money
+
+def calculate_years(principal, interest, tax, desired, count=0):
+
+	if principal >= desired:
+		return count
+
+	principal = principal * (1 + interest) - (principal * interest * tax)
+
+	return calculate_years(principal, interest, tax, desired, count+1)
