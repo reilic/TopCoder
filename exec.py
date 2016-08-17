@@ -37,4 +37,10 @@ CodeWars.encryptor(-5, 'Hello World!')
 
 #lvl6
 #Multiplication Tables
-print CodeWars.multiplication_table(2,2)
+'''print CodeWars.multiplication_table(2,2)
+'''
+
+#lvl7
+#List Filtering
+print CodeWars.filter_list([1,2,'a','b',0,15,'aasf','1','123'])
+print CodeWars.filter_list(['a'])

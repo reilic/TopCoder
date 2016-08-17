@@ -62,3 +62,15 @@ def multiplication_table(row,col):
 			inner.append(r*c)
 		result.append(inner)
 	return result
+
+#lvl7
+#List Filtering
+def filter_list(l):
+
+	print l
+
+	for i in range(len(l)-1,0,-1):
+		if not (type(l[i]) is int):
+			l.pop(i)
+
+	return l
