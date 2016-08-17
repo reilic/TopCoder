@@ -30,3 +30,6 @@ CodeWars.encryptor(13,'Caesar Cipher')
 CodeWars.encryptor(-5, 'Hello World!')
 '''
 
+#lvl7
+#Jaden Casing Strings
+print CodeWars.toJadenCase('There\'s iS a Test.')

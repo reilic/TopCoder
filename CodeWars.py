@@ -42,3 +42,12 @@ def encryptor(key,message):
 		else:
 			enc.append(e)
 	print enc
+
+#lvl7
+#Jaden Casing Strings
+def toJadenCase(s):
+	result = ''
+	for e in s.split(' '):
+		result = result + e[0].upper() + e[1:].lower() +' '
+
+	return result[:-1]
