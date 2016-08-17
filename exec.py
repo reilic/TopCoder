@@ -32,4 +32,9 @@ CodeWars.encryptor(-5, 'Hello World!')
 
 #lvl7
 #Jaden Casing Strings
-print CodeWars.toJadenCase('There\'s iS a Test.')
+'''print CodeWars.toJadenCase('There\'s iS a Test.')
+'''
+
+#lvl6
+#Multiplication Tables
+print CodeWars.multiplication_table(2,2)

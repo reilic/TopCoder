@@ -51,3 +51,14 @@ def toJadenCase(s):
 		result = result + e[0].upper() + e[1:].lower() +' '
 
 	return result[:-1]
+
+#lvl6
+#Multiplication Tables
+def multiplication_table(row,col):
+	result = []
+	for r in range(1,row+1):
+		inner =[]
+		for c in range(1,col+1):
+			inner.append(r*c)
+		result.append(inner)
+	return result
