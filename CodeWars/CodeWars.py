@@ -75,7 +75,6 @@ def filter_list(l):
 def order(sentence):
 
 	s = sentence.split(" ")
-
 	ordered = []
 
 	for i in range(1,len(s)+1):
@@ -86,4 +85,21 @@ def order(sentence):
 
 	return " ".join(ordered)
 
+#lvl6
+#Persistent Bugger
+def persistence(n, count=0):
+	num = []
+	total = 1
 
+	#when n is 1-digit 
+	if n < 10:
+		return count
+
+	#load number as individual digits
+	for e in str(n):
+		num.append(e)
+
+	for e in num:
+		total *= int(e)
+
+	return persistence(total,count+1)	

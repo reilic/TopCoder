@@ -49,4 +49,14 @@ print CodeWars.filter_list(['a'])
 
 #lvl6
 #Your order, please
+'''
 print CodeWars.order("is2 Thi1s T4est 3a")
+'''
+
+#lvl6
+#Persistent Bugger
+print CodeWars.persistence(39)
+print CodeWars.persistence(3)
+print CodeWars.persistence(25)
+print CodeWars.persistence(999)
+
