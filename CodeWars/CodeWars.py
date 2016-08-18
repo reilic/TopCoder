@@ -103,3 +103,24 @@ def persistence(n, count=0):
 		total *= int(e)
 
 	return persistence(total,count+1)	
+
+#lvl6
+#Tortoise racing
+def race(v1,v2,g):
+	time = []
+
+	if v1 >= v2:
+		return None
+
+	#since it's only int(), would return only integers which represents the hour	
+	time.append(g/(v2 - v1))
+
+	time_taken = g/float(v2 - v1) #in hour
+
+	#min taken
+	time.append(int(time_taken * 60 % 60))
+
+	#sec taken
+	time.append(int(time_taken * 60 % 60 * 60 % 60))
+	
+	return time

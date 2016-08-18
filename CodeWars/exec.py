@@ -55,8 +55,15 @@ print CodeWars.order("is2 Thi1s T4est 3a")
 
 #lvl6
 #Persistent Bugger
+'''
 print CodeWars.persistence(39)
 print CodeWars.persistence(3)
 print CodeWars.persistence(25)
 print CodeWars.persistence(999)
+'''
 
+#lvl6
+#Tortoise racing
+print CodeWars.race(720,850,70)
+print CodeWars.race(80,91,37)
+print CodeWars.race(80,100,40)
