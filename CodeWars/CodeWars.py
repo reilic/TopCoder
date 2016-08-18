@@ -66,11 +66,24 @@ def multiplication_table(row,col):
 #lvl7
 #List Filtering
 def filter_list(l):
-
-	print l
-
 	for i in range(len(l)-1,-1,-1):
 		if not (type(l[i]) is int):
 			l.pop(i)
 
-	return l
+#lvl6
+#Your order, please
+def order(sentence):
+
+	s = sentence.split(" ")
+
+	ordered = []
+
+	for i in range(1,len(s)+1):
+		for e in s:
+			for c in e:
+				if c == str(i):
+					ordered.append(e)
+
+	return " ".join(ordered)
+
+

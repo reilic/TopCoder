@@ -42,5 +42,11 @@ CodeWars.encryptor(-5, 'Hello World!')
 
 #lvl7
 #List Filtering
+'''
 print CodeWars.filter_list([1,2,'a','b',0,15,'aasf','1','123'])
 print CodeWars.filter_list(['a'])
+'''
+
+#lvl6
+#Your order, please
+print CodeWars.order("is2 Thi1s T4est 3a")
