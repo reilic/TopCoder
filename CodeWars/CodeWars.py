@@ -124,3 +124,4 @@ def race(v1,v2,g):
 	time.append(int(time_taken * 60 % 60 * 60 % 60))
 	
 	return time
+
