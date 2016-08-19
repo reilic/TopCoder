@@ -7,7 +7,7 @@ import json
 #determine if result is valid
 
 script, postcode = argv
-data = []
+data = None
 
 
 url = 'http://v0.postcodeapi.com.au/suburbs/%s.json' % postcode
@@ -24,8 +24,8 @@ except urllib2.HTTPError, e:
 
 print data
 
-if data == []:
-	print "no data"
-else:
+if data:
 	print data[0]['name']
-
+else:
+	print "no data"
+	
