@@ -79,7 +79,26 @@ print CodeWars.tickets([25,100])
 
 #lvl6
 #Unique in Order
+'''
 print CodeWars.unique_in_order('AAAABBBCCcDAABBB')
 print CodeWars.unique_in_order('ABBCcAD')
 print CodeWars.unique_in_order([1,2,2,3,3])
 print CodeWars.unique_in_order([])
+'''
+
+#lvl5
+#Gap in Primes
+'''
+print CodeWars.gap(4,130,200)
+print CodeWars.gap(2,100,110)
+print CodeWars.gap(4,100,110)
+print CodeWars.gap(6,100,110)
+print CodeWars.gap(8,300,400)
+print CodeWars.gap(10,300,400)
+'''
+
+#lvl6
+#Complete the Pattern #8 - Number pyramid
+#print CodeWars.pattern(1)
+print CodeWars.pattern(4)
+#print CodeWars.pattern(0)
