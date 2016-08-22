@@ -1,6 +1,7 @@
 from sys import argv
-import urllib2
 import json
+import requests
+
 
 #accept user input argv
 #get postcode info
@@ -9,22 +10,15 @@ import json
 script, postcode = argv
 data = None
 
-
 url = 'http://v0.postcodeapi.com.au/suburbs/%s.json' % postcode
 header = {'User-Agent' : 'ubuntu Browser'}
+response = requests.get(url,headers=header)
 
-req = urllib2.Request(url, headers=header)
+#if successful retrieve
 
-opener = urllib2.build_opener()
-
-try:
-	data = json.loads(opener.open(req).read())
-except urllib2.HTTPError, e:
-	print "Request doesn't generate anything."
-
-if data:
+if response.status_code != 200:
+	print "no data"
+else:
+	data = json.loads(response.text)
 	for e in data:
 		print e['name']
-else:
-	print "no data"
-	
