@@ -200,20 +200,31 @@ def isprime(i):
 #Complete the Pattern #8 - Number pyramid
 def pattern(n):
 	result = ""
-
+	
 	if n == 1: return "1"
 	if n == 0: return result
 
 	for i in range(1,n+1):
 		result = result + " "*(n-i) + str(prt(i)) + " "*(n-i) + "\n"
-	return result
+	return result[:-1]
+	
+#	return prt(10)
 
 
 def prt(i):
+	
 	s = ''
-	for i in range(1,i+1):
-		s = s + str(i)
+	counter =1
 
-	for i in range(i,1, -1):
-		s = s + str(i-1)
+	while counter <= i:
+		s = s + str(counter)[-1:]
+		counter += 1
+	'''
+	counter = i-1 #reset back to the level intended
+
+	while counter <= i and counter >= 1:
+		s = s + str(counter)[-1:]
+		counter -= 1
+	'''
+	s = s + s[::-1][1:]
 	return s

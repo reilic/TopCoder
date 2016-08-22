@@ -100,5 +100,5 @@ print CodeWars.gap(10,300,400)
 #lvl6
 #Complete the Pattern #8 - Number pyramid
 #print CodeWars.pattern(1)
-print CodeWars.pattern(4)
-#print CodeWars.pattern(0)
+#print CodeWars.pattern(4)
+print CodeWars.pattern(54)
