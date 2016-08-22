@@ -131,6 +131,8 @@ def tickets(people):
 	change = 0
 	ticket_price = 25 #ticket is $25 dollars
 
+	print people
+
 	if people[0] > ticket_price:
 		return 'NO'
 
@@ -142,4 +144,22 @@ def tickets(people):
 			#need change given
 			change -= (p - ticket_price)
 
+	print change
 	return 'YES' if change >=0 else 'NO'
+
+#lvl6
+#Unique in Order
+#example: AAAABBBCCCcccDAABB should return A,B,C,c,D,A,B.
+def unique_in_order(iterable):
+
+	if iterable:
+
+		answer =[iterable[0]]
+
+		for e in iterable:
+			if e != answer[-1]:
+				answer.append(e)
+
+		return answer
+
+	return []

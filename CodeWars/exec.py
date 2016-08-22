@@ -72,5 +72,14 @@ print CodeWars.race(80,100,40)
 
 #lvl6
 #Vasya-Clerk
+'''
 print CodeWars.tickets([25,25,50])
 print CodeWars.tickets([25,100])
+'''
+
+#lvl6
+#Unique in Order
+print CodeWars.unique_in_order('AAAABBBCCcDAABBB')
+print CodeWars.unique_in_order('ABBCcAD')
+print CodeWars.unique_in_order([1,2,2,3,3])
+print CodeWars.unique_in_order([])
