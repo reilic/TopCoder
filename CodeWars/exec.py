@@ -64,6 +64,13 @@ print CodeWars.persistence(999)
 
 #lvl6
 #Tortoise racing
+'''
 print CodeWars.race(720,850,70)
 print CodeWars.race(80,91,37)
 print CodeWars.race(80,100,40)
+'''
+
+#lvl6
+#Vasya-Clerk
+print CodeWars.tickets([25,25,50])
+print CodeWars.tickets([25,100])

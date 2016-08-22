@@ -125,3 +125,21 @@ def race(v1,v2,g):
 	
 	return time
 
+#lvl6
+#Vasya-Clerk
+def tickets(people):
+	change = 0
+	ticket_price = 25 #ticket is $25 dollars
+
+	if people[0] > ticket_price:
+		return 'NO'
+
+	for p in people:
+		if p == ticket_price:
+			#exact amount
+			change += p
+		else:
+			#need change given
+			change -= (p - ticket_price)
+
+	return 'YES' if change >=0 else 'NO'
