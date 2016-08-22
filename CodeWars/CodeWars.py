@@ -207,9 +207,6 @@ def pattern(n):
 	for i in range(1,n+1):
 		result = result + " "*(n-i) + str(prt(i)) + " "*(n-i) + "\n"
 	return result[:-1]
-	
-#	return prt(10)
-
 
 def prt(i):
 	
@@ -219,12 +216,7 @@ def prt(i):
 	while counter <= i:
 		s = s + str(counter)[-1:]
 		counter += 1
-	'''
-	counter = i-1 #reset back to the level intended
 
-	while counter <= i and counter >= 1:
-		s = s + str(counter)[-1:]
-		counter -= 1
-	'''
 	s = s + s[::-1][1:]
+	
 	return s
