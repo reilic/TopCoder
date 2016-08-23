@@ -218,5 +218,26 @@ def prt(i):
 		counter += 1
 
 	s = s + s[::-1][1:]
-	
+
 	return s
+
+#lvl6
+#Surrounding Primes for a value
+def prime_bef_aft(num):
+
+	counter = num-1
+	result =[]
+
+	while not isprime(counter):
+		counter -= 1
+
+	result.append(counter)
+
+	counter = num+1 #reset 	
+
+	while not isprime(counter):
+		counter += 1
+
+	result.append(counter)
+
+	return result

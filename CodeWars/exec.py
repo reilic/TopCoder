@@ -105,3 +105,9 @@ print CodeWars.pattern(4)
 print CodeWars.pattern(54)
 '''
 
+#lvl6
+#Surrounding Primes for a value
+print CodeWars.prime_bef_aft(100)
+print CodeWars.prime_bef_aft(97)
+print CodeWars.prime_bef_aft(120)
+print CodeWars.prime_bef_aft(130)
