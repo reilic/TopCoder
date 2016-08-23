@@ -241,3 +241,11 @@ def prime_bef_aft(num):
 	result.append(counter)
 
 	return result
+
+#lvl6
+#Detect Pangram
+def is_pangram(s):
+
+	result =[c.lower() for c in s if c.isalpha()]
+
+	return len(set(result)) == 26

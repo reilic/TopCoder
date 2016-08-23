@@ -107,7 +107,14 @@ print CodeWars.pattern(54)
 
 #lvl6
 #Surrounding Primes for a value
+'''
 print CodeWars.prime_bef_aft(100)
 print CodeWars.prime_bef_aft(97)
 print CodeWars.prime_bef_aft(120)
 print CodeWars.prime_bef_aft(130)
+'''
+
+#lvl6
+#Detect Pangram
+print CodeWars.is_pangram("The quick, brown fox jumps over the lazy dog!")
+print CodeWars.is_pangram("ABCD45EFGH,IJK,LMNOPQR56STUVW3XYZ")
