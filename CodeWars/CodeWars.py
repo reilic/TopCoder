@@ -257,3 +257,20 @@ def binary_to_string(binary):
 	data = [ binary[i:i+8] for i in range(0,len(binary),8) ]
 
 	return "".join([chr(int(d,2)) for d in data])
+
+#lvl5
+#DIrections Reduction
+def dirReduc(arr):
+
+	while len(arr) >= len(set(arr)):
+
+		if "WEST" in arr and "EAST" in arr:
+			arr.pop(arr.index("WEST"))
+			arr.pop(arr.index("EAST"))
+		elif "NORTH" in arr and "SOUTH" in arr:
+			arr.pop(arr.index("NORTH"))
+			arr.pop(arr.index("SOUTH"))
+		else:
+			break		
+
+	return arr

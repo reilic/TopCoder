@@ -123,8 +123,17 @@ print CodeWars.is_pangram("ABCD45EFGH,IJK,LMNOPQR56STUVW3XYZ")
 
 #lvl6
 #Binary to Text (Ascii) conversion
+'''
 print CodeWars.binary_to_string('0100100001100101011011000110110001101111')
 print CodeWars.binary_to_string('01100101')
 print CodeWars.binary_to_string('01101100')
 print CodeWars.binary_to_string('01101100')
 print CodeWars.binary_to_string('01101111')
+'''
+
+#lvl5
+#DIrections Reduction
+print CodeWars.dirReduc(["NORTH", "SOUTH", "SOUTH", "EAST", "WEST", "NORTH","WEST"])
+print CodeWars.dirReduc(["NORTH", "WEST"])
+print CodeWars.dirReduc(["NORTH", "SOUTH", "SOUTH", "EAST", "WEST", "NORTH"])
+print CodeWars.dirReduc(["NORTH", "SOUTH", "WEST","EAST"])
