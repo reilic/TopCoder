@@ -116,5 +116,15 @@ print CodeWars.prime_bef_aft(130)
 
 #lvl6
 #Detect Pangram
+'''
 print CodeWars.is_pangram("The quick, brown fox jumps over the lazy dog!")
 print CodeWars.is_pangram("ABCD45EFGH,IJK,LMNOPQR56STUVW3XYZ")
+'''
+
+#lvl6
+#Binary to Text (Ascii) conversion
+print CodeWars.binary_to_string('0100100001100101011011000110110001101111')
+print CodeWars.binary_to_string('01100101')
+print CodeWars.binary_to_string('01101100')
+print CodeWars.binary_to_string('01101100')
+print CodeWars.binary_to_string('01101111')

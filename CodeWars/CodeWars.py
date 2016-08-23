@@ -249,3 +249,11 @@ def is_pangram(s):
 	result =[c.lower() for c in s if c.isalpha()]
 
 	return len(set(result)) == 26
+
+#lvl6
+#Binary to Text (Ascii) conversion
+def binary_to_string(binary):
+
+	data = [ binary[i:i+8] for i in range(0,len(binary),8) ]
+
+	return "".join([chr(int(d,2)) for d in data])
