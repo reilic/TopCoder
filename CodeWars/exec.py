@@ -133,7 +133,14 @@ print CodeWars.binary_to_string('01101111')
 
 #lvl5
 #DIrections Reduction
+'''
 print CodeWars.dirReduc(["NORTH", "SOUTH", "SOUTH", "EAST", "WEST", "NORTH","WEST"])
 print CodeWars.dirReduc(["NORTH", "WEST"])
 print CodeWars.dirReduc(["NORTH", "SOUTH", "SOUTH", "EAST", "WEST", "NORTH"])
 print CodeWars.dirReduc(["NORTH", "SOUTH", "WEST","EAST"])
+'''
+
+#lvl6
+#Reverse Words
+print CodeWars.reverse_words('This is an example!')
+

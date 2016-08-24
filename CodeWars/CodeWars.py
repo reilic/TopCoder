@@ -272,5 +272,10 @@ def dirReduc(arr):
 			arr.pop(arr.index("SOUTH"))
 		else:
 			break		
-
 	return arr
+
+#lvl6
+#Reverse Words
+def reverse_words(str):
+
+	return ' '.join([c[::-1] for c in str.split(' ')])
