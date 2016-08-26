@@ -2,6 +2,7 @@ class Person(object):
 
 	def __init__(self, n):
 		self.name = n
+		print Person.__repr__(self)
 
 	def getName(self):
 		return 'My name is: %r' % self.name
@@ -19,7 +20,7 @@ class Student(Person):
 		Person.__init__(self,n)
 		self.sid = sid
 		self.degree = d
-#		print Student.__str__(self)
+		print Student.__str__(self)
 		
 	def getStudentID(self):
 		return self.sid
@@ -65,9 +66,7 @@ class MasterStudent(Student):
 Jeff = Person("Jeff")
 
 Cameron = Student('Cameron', 'U2514483', "Social Science")
-Simon = PhDStudent('Simon', 'U9012334', 'Computer Science', 'Impact of Compter on mice reproduction')
+#Simon = PhDStudent('Simon', 'U9012334', 'Computer Science', 'Impact of Compter on mice reproduction')
 #Ellan = MasterStudent("Ellan", 'U4354830', "Photography", "Adam Depands")
 #Ellan.setDegree("News Photography", "John Simonthian")
 
-print Cameron
-print Simon
