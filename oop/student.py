@@ -2,7 +2,7 @@ class Person(object):
 
 	def __init__(self, n):
 		self.name = n
-		print Person.__repr__(self)
+		print Person.__str__(self)
 
 	def getName(self):
 		return 'My name is: %r' % self.name
@@ -11,7 +11,7 @@ class Person(object):
 		self.name = n
 		print 'New Name is: %r' % self.name
 
-	def __repr__(self):
+	def __str__(self):
 		return "%15s%s\n" % ("Name: ", self.name)
 
 class Student(Person):
@@ -65,8 +65,7 @@ class MasterStudent(Student):
 
 Jeff = Person("Jeff")
 
-Cameron = Student('Cameron', 'U2514483', "Social Science")
+Cameron = Student('Cameron', 'U2314313', "Social Science")
 #Simon = PhDStudent('Simon', 'U9012334', 'Computer Science', 'Impact of Compter on mice reproduction')
 #Ellan = MasterStudent("Ellan", 'U4354830', "Photography", "Adam Depands")
 #Ellan.setDegree("News Photography", "John Simonthian")
-
