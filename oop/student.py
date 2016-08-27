@@ -23,12 +23,16 @@ class Student(Person):
 		Person.__init__(self,n)
 		self.sid = sid
 		self.degree = degree
-		
+		self.classes = [] #no class enrolled by default
+
 	def getStudentID(self):
 		return self.sid
 
 	def getDegree(self):
 		return self.degree
+
+	def enroll(self,classes):
+		self.classes.append(classes)
 
 	def setDegree(self,degree):
 		self.degree = degree
@@ -67,39 +71,3 @@ class MasterStudent(Student):
 
 	def __str__(self):
 		return super(MasterStudent,self).__str__() + "%15s%s\n" % ("Supervisor: ", self.supervisor)
-
-persons = [Person("Jeff")]
-persons.append(Student('Cameron', 'U2314313', "Social Science"))
-persons.append(PhDStudent('Simon', 'U9012334', 'Computer Science', 'Impact of Compter on mice reproduction'))
-persons.append(MasterStudent("Ellan", 'U4354830', "Photography", "Adam Depands"))
-
-for p in persons:
-	if p.type == 'PhDStudent':
-		print p
-	else:
-		print p.getName()
-
-
-'''
-Cameron = Student('Cameron', 'U2314313', "Social Science")
-Simon = PhDStudent('Simon', 'U9012334', 'Computer Science', 'Impact of Compter on mice reproduction')
-Ellan = MasterStudent("Ellan", 'U4354830', "Photography", "Adam Depands")
-
-print Cameron
-
-Cameron.setDegree("International relations")
-
-print Cameron
-
-print Simon
-
-Simon.setDegree("Database Management")
-
-print Simon
-
-print Ellan
-
-Ellan.setDegree("News Photography", "John Simonthian")
-
-print Ellan
-'''
