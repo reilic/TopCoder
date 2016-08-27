@@ -1,8 +1,9 @@
 class Person(object):
 
+	type = 'Person'
+
 	def __init__(self, n):
 		self.name = n
-		print Person.__str__(self)
 
 	def getName(self):
 		return 'My name is: %r' % self.name
@@ -16,11 +17,12 @@ class Person(object):
 
 class Student(Person):
 
-	def __init__(self, n, sid, d):
+	type = 'Student'
+
+	def __init__(self, n, sid, degree):
 		Person.__init__(self,n)
 		self.sid = sid
-		self.degree = d
-		print Student.__str__(self)
+		self.degree = degree
 		
 	def getStudentID(self):
 		return self.sid
@@ -28,26 +30,29 @@ class Student(Person):
 	def getDegree(self):
 		return self.degree
 
-	def setDegree(self,d):
-		self.degree = d
+	def setDegree(self,degree):
+		self.degree = degree
 
-	def __str__(self):
-		return Person.__str__(self) + "%15s%s\n%15s%s\n"  % ("StudentID: ", self.sid, "Degree: ", self.degree)
+	def __str__(self): #Person.__str__(self)
+		return  super(Student,self).__str__()+ "%15s%s\n%15s%s\n"  % ("StudentID: ", self.sid, "Degree: ", self.degree)
 
 class PhDStudent(Student):
+
+	type = 'PhDStudent'
 
 	def  __init__(self,n,sid,degree, thesis):
 		Student.__init__(self,n,sid,degree)
 		self.thesis = thesis
-#		print PhDStudent.__str__(self)
 
 	def getThesis(self):
 		return self.thesis
 
 	def __str__(self):
-		return Student.__str__(self) + "%15s%s\n" % ("Thesis: ", self.thesis)
+		return super(PhDStudent,self).__str__() + "%15s%s\n" % ("Thesis: ", self.thesis)
 
 class MasterStudent(Student):
+
+	type = 'MasterStudent'
 
 	def __init__(self,n,sid,degree,supervisor):
 		Student.__init__(self,n,sid,degree)
@@ -61,11 +66,40 @@ class MasterStudent(Student):
 		self.supervisor = supervisor
 
 	def __str__(self):
-		return Student.__str__(self) + "%15s%s\n" % ("Supervisor: ", self.supervisor)
+		return super(MasterStudent,self).__str__() + "%15s%s\n" % ("Supervisor: ", self.supervisor)
 
-Jeff = Person("Jeff")
+persons = [Person("Jeff")]
+persons.append(Student('Cameron', 'U2314313', "Social Science"))
+persons.append(PhDStudent('Simon', 'U9012334', 'Computer Science', 'Impact of Compter on mice reproduction'))
+persons.append(MasterStudent("Ellan", 'U4354830', "Photography", "Adam Depands"))
 
+for p in persons:
+	if p.type == 'PhDStudent':
+		print p
+	else:
+		print p.getName()
+
+
+'''
 Cameron = Student('Cameron', 'U2314313', "Social Science")
-#Simon = PhDStudent('Simon', 'U9012334', 'Computer Science', 'Impact of Compter on mice reproduction')
-#Ellan = MasterStudent("Ellan", 'U4354830', "Photography", "Adam Depands")
-#Ellan.setDegree("News Photography", "John Simonthian")
+Simon = PhDStudent('Simon', 'U9012334', 'Computer Science', 'Impact of Compter on mice reproduction')
+Ellan = MasterStudent("Ellan", 'U4354830', "Photography", "Adam Depands")
+
+print Cameron
+
+Cameron.setDegree("International relations")
+
+print Cameron
+
+print Simon
+
+Simon.setDegree("Database Management")
+
+print Simon
+
+print Ellan
+
+Ellan.setDegree("News Photography", "John Simonthian")
+
+print Ellan
+'''
