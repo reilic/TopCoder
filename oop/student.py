@@ -19,14 +19,14 @@ class Student(Person):
 
 	type = 'Student'
 
-	def __init__(self, n, sid, degree):
+	def __init__(self, n, id, degree):
 		Person.__init__(self,n)
-		self.sid = sid
+		self.id = id
 		self.degree = degree
 		self.classes = [] #no class enrolled by default
 
 	def getStudentID(self):
-		return self.sid
+		return self.id
 
 	def getDegree(self):
 		return self.degree
@@ -34,18 +34,21 @@ class Student(Person):
 	def enroll(self,classes):
 		self.classes.append(classes)
 
+	def getclasses(self):
+			return self.classes
+
 	def setDegree(self,degree):
 		self.degree = degree
 
 	def __str__(self): #Person.__str__(self)
-		return  super(Student,self).__str__()+ "%15s%s\n%15s%s\n"  % ("StudentID: ", self.sid, "Degree: ", self.degree)
+		return  super(Student,self).__str__()+ "%15s%s\n%15s%s\n"  % ("StudentID: ", self.id, "Degree: ", self.degree)
 
 class PhDStudent(Student):
 
 	type = 'PhDStudent'
 
-	def  __init__(self,n,sid,degree, thesis):
-		Student.__init__(self,n,sid,degree)
+	def  __init__(self,n,id,degree, thesis):
+		Student.__init__(self,n,id,degree)
 		self.thesis = thesis
 
 	def getThesis(self):
@@ -58,8 +61,8 @@ class MasterStudent(Student):
 
 	type = 'MasterStudent'
 
-	def __init__(self,n,sid,degree,supervisor):
-		Student.__init__(self,n,sid,degree)
+	def __init__(self,n,id,degree,supervisor):
+		Student.__init__(self,n,id,degree)
 		self.supervisor = supervisor
 
 	def getSupervisor(self):
