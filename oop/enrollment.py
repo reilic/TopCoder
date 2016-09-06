@@ -44,15 +44,17 @@ class enrollment(wx.Frame):
 		hbox = wx.BoxSizer(wx.HORIZONTAL)
 
 		btnAddEnrol = wx.Button(panel, label='Add Enrollment', size=(100, 30))
+		btnAddEnrol.Bind(wx.EVT_BUTTON, self.AddEnrollment)
 		hbox.Add(btnAddEnrol)
 
 		btnClose = wx.Button(panel, label='Close', size=(100,30))
+		btnClose.Bind(wx.EVT_BUTTON, self.OnQuit)
 		hbox.Add(btnClose, flag=wx.LEFT|wx.BOTTOM, border=5)
 
 		vbox.Add(hbox, flag=wx.ALIGN_RIGHT|wx.RIGHT, border=10)
 
 		panel.SetSizer(vbox)
-
+		
 		self.SetSize((500,400))
 		self.SetTitle("Enrollment System")
 		self.Centre()
