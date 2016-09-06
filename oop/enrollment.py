@@ -5,24 +5,33 @@ from student import MasterStudent
 from course import course
 import wx
 
+APP_EXIT = 1
+APP_AddEnrol = 2
+
 class enrollment(wx.Frame):
-	def __init__(self,parent):
-		super(enrollment, self).__init__(parent)
-		self.Centre()
-		self.Show()
+
+	def __init__(self,*args, **kwargs):
+		super(enrollment, self).__init__(*args, **kwargs)
+
 		self.InitUI()
 
 	def InitUI(self):
 		menubar = wx.MenuBar()
 		fileMenu = wx.Menu()
-		fitem = fileMenu.Append(wx.ID_EXIT, 'Quit', 'Quit System')
-		menubar.Append(fileMenu, '&File')
-		self.Bind(wx.EVT_MENU, self.OnQuit, fitem)
 
-		sysMenu = wx.Menu()
-		sitem = sysMenu.Append(wx.ID_OK, 'Add enrollment', "add enrollment")
-		menubar.Append(sysMenu, "&System")
-		self.Bind(wx.EVT_MENU, self.OnAddEnrollment, sitem)
+		# Add Enrollment menu item
+		itemAddEnrollment = wx.MenuItem(fileMenu, APP_AddEnrol, 'Add Enrollment')
+		fileMenu.AppendItem(itemAddEnrollment)
+		self.Bind(wx.EVT_MENU, self.AddEnrollment, id=APP_AddEnrol)
+
+		fileMenu.AppendSeparator()
+
+		# Quit menu item
+		itemQuit = wx.MenuItem(fileMenu, APP_EXIT, '&Quit\tCtrl-Q')
+		fileMenu.AppendItem(itemQuit)
+		self.Bind(wx.EVT_MENU, self.OnQuit, id=APP_EXIT)
+
+		menubar.Append(fileMenu, '&File')
 
 		self.SetMenuBar(menubar)
 
@@ -34,7 +43,7 @@ class enrollment(wx.Frame):
 	def OnQuit(self,e):
 		self.Close()
 
-	def OnAddEnrollment(self,e):
+	def AddEnrollment(self,e):
 		self.Close()
 
 def main():
