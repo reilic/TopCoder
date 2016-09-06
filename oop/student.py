@@ -1,3 +1,5 @@
+from course import course
+
 class Person(object):
 
 	type = 'Person'
@@ -33,8 +35,9 @@ class Student(Person):
 
 	def enroll(self,classes):
 		self.classes.append(classes)
+		course.acceptEnrolment(classes, self)
 
-	def getclasses(self):
+	def enrollmentRecord(self):
 			return self.classes
 
 	def setDegree(self,degree):

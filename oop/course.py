@@ -5,9 +5,13 @@ class course(object):
 		self.name = name
 		self.enrolled = []
 
-	def acceptenrol(self,student):
+	def acceptEnrolment(self,student):
 		self.enrolled.append(student)
 
-	def displayenrolment(self):
+	def displayEnrolment(self):
+		print "Enrollment: %s" % (self)
 		for i in self.enrolled:
 			print i
+
+	def __str__(self):
+		return self.id + " " + self.name

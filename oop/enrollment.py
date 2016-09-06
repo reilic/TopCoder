@@ -4,20 +4,25 @@ from student import PhDStudent
 from student import MasterStudent
 from course import course
 
-persons = []
-persons.append(Student('Cameron', 'U2314313', "Social Science"))
-persons.append(PhDStudent('Simon', 'U9012334', 'Computer Science', 'Impact of Compter on mice reproduction'))
-persons.append(MasterStudent("Ellan", 'U4354830', "Photography", "Adam Depands"))
+#initiate a student
+persons = [Student('Cameron', 'U2314313', "Social Science")]
 
-persons[1].enroll(persons[1].getDegree() +' 101')
-persons[1].enroll('Advanced ' + persons[1].getclasses()[0])
-persons[1].enroll(persons[1].getThesis()[::-1])
+#initiate a new course
+courses = [course("BUSN1001", "Financial Accouinting"), course("ECON1101","Microeconomics")]
 
-courses = [course("BUSN1001", "Financial Accouinting")]
 
-courses[0].acceptenrol(persons[1])
+#enrol student into BUSN1001
+persons[0].enroll(courses[0])
 
-courses[0].displayenrolment()
+persons[0].enroll(courses[1])
+
+#persons.append(PhDStudent('Simon', 'U9012334', 'Computer Science', 'Impact of Compter on mice reproduction'))
+#persons.append(MasterStudent("Ellan", 'U4354830', "Photography", "Adam Depands"))
+
+
+for i in courses:
+	i.displayEnrolment()
+
 
 '''
 for p in persons:
