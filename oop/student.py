@@ -7,13 +7,6 @@ class Person(object):
 	def __init__(self, n):
 		self.name = n
 
-	def getName(self):
-		return 'My name is: %r' % self.name
-
-	def setName(self,n):
-		self.name = n
-		print 'New Name is: %r' % self.name
-
 	def __str__(self):
 		return "%15s%s\n" % ("Name: ", self.name)
 
@@ -33,15 +26,15 @@ class Student(Person):
 	def getDegree(self):
 		return self.degree
 
+	def setDegree(self,degree):
+		self.degree = degree
+
 	def enroll(self,classes):
 		self.classes.append(classes)
 		course.acceptEnrolment(classes, self)
 
 	def enrollmentRecord(self):
 			return self.classes
-
-	def setDegree(self,degree):
-		self.degree = degree
 
 	def __str__(self): #Person.__str__(self)
 		return  super(Student,self).__str__()+ "%15s%s\n%15s%s\n"  % ("StudentID: ", self.id, "Degree: ", self.degree)

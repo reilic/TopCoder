@@ -3,31 +3,26 @@ from student import Person
 from student import PhDStudent
 from student import MasterStudent
 from course import course
+import wx
 
 #initiate a student
-persons = [Student('Cameron', 'U2314313', "Social Science")]
+persons = []
+persons.append(Student('Cameron', 'U2314313', "Social Science"))
+persons.append(PhDStudent('Simon', 'U9012334', 'Computer Science', 'Impact of Compter on mice reproduction'))
 
-#initiate a new course
-courses = [course("BUSN1001", "Financial Accouinting"), course("ECON1101","Microeconomics")]
-
+#initiate new courses
+courses = [course("BUSN1001", "Financial Accounting"), course("ECON1101","Microeconomics")]
 
 #enrol student into BUSN1001
 persons[0].enroll(courses[0])
 
-persons[0].enroll(courses[1])
+#enrol student into ECON1101
+persons[1].enroll(courses[1])
 
-#persons.append(PhDStudent('Simon', 'U9012334', 'Computer Science', 'Impact of Compter on mice reproduction'))
-#persons.append(MasterStudent("Ellan", 'U4354830', "Photography", "Adam Depands"))
+app = wx.App()
 
+frame = wx.Frame(None, -1, 'enrollment.py')
 
-for i in courses:
-	i.displayEnrolment()
+frame.Show()
 
-
-'''
-for p in persons:
-	if p.type == 'PhDStudent':
-		print p.getclasses()
-'''
-
-
+app.MainLoop()
