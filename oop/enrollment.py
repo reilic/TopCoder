@@ -15,7 +15,7 @@ class enrollment(wx.Frame):
 
 		self.InitUI()
 
-	def InitUI(self):
+	def CreateMenu(self):
 		menubar = wx.MenuBar()
 		fileMenu = wx.Menu()
 
@@ -35,10 +35,16 @@ class enrollment(wx.Frame):
 
 		self.SetMenuBar(menubar)
 
+	def InitUI(self):
+
+		#call CreateMenu()
+		self.CreateMenu()
+
 		self.statusbar = self.CreateStatusBar()
 		self.statusbar.SetStatusText("Ready")
 
 		panel = wx.Panel(self)
+		panel.SetBackgroundColour('#4f5049')
 
 		vbox = wx.BoxSizer(wx.VERTICAL)
 		hbox = wx.BoxSizer(wx.HORIZONTAL)
@@ -47,14 +53,19 @@ class enrollment(wx.Frame):
 		btnAddEnrol.Bind(wx.EVT_BUTTON, self.AddEnrollment)
 		hbox.Add(btnAddEnrol)
 
-		btnClose = wx.Button(panel, label='Close', size=(100,30))
-		btnClose.Bind(wx.EVT_BUTTON, self.OnQuit)
-		hbox.Add(btnClose, flag=wx.LEFT|wx.BOTTOM, border=5)
-
 		vbox.Add(hbox, flag=wx.ALIGN_RIGHT|wx.RIGHT, border=10)
 
+		wx.StaticText(panel, label="Student: ", pos=(10,100))
+		wx.StaticText(panel, label="Course: ", pos=(10,120))
+
+		self.labelStudent = wx.StaticText(panel, label='Text', pos=(80,100))
+		self.labelStudent.SetBackgroundColour('#dd9090')
+
+		self.labelCourse = wx.StaticText(panel, label='Text', pos=(80,120))
+		self.labelCourse.SetBackgroundColour('#dd9090')
+
 		panel.SetSizer(vbox)
-		
+
 		self.SetSize((500,400))
 		self.SetTitle("Enrollment System")
 		self.Centre()
@@ -65,6 +76,8 @@ class enrollment(wx.Frame):
 
 	def AddEnrollment(self,e):
 		self.statusbar.SetStatusText("Clicked on Add Enrolment")
+		self.labelStudent.SetLabel(persons[0].getStudentID())
+
 
 def main():
 	app = wx.App()
