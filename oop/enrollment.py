@@ -41,11 +41,11 @@ class enrollment(wx.Frame):
 		#self.CreateMenu()
 
 		#create status bar
-		self.statusbar = self.CreateStatusBar()
-		self.statusbar.SetStatusText("Ready")
+		#self.statusbar = self.CreateStatusBar()
+		#self.statusbar.SetStatusText("Ready")
 
 		panel = wx.Panel(self)
-		panel.SetBackgroundColour('#4f5049')
+		#panel.SetBackgroundColour('#4f5049')
 
 		box = wx.BoxSizer(wx.HORIZONTAL)
 
@@ -57,7 +57,7 @@ class enrollment(wx.Frame):
 		labelDegree = wx.StaticText(panel, label='Degree')
 
 		self.txtID = wx.TextCtrl(panel)
-		self.txtName = wx.TextCtrl(panel)
+		self.txtName = wx.TextCtrl(panel)	
 		self.txtDegree = wx.TextCtrl(panel)
 
 		btnAdd = wx.Button(panel, label="Add Enrollment")
@@ -70,7 +70,7 @@ class enrollment(wx.Frame):
 			(labelID), (self.txtID, 1, wx.EXPAND), 
 			(labelName), (self.txtName, 1, wx.EXPAND), 
 			(labelDegree), (self.txtDegree, 1, wx.EXPAND),
-			(btnAdd, 1, wx.LEFT),  (btnCancel, 2, wx.RIGHT)
+			(btnAdd, 1, wx.LEFT | wx.ALIGN_LEFT),  (btnCancel, 2, wx.ALIGN_RIGHT)
 			])
 
 		#fgs.AddGrowableRow(2,1)
@@ -90,14 +90,24 @@ class enrollment(wx.Frame):
 
 	def AddEnrollment(self,e):
 
-		if self.txtID.GetValue() == '' or self.txtName.GetValue() == '' or self.txtDegree.GetValue() == '':
-			wx.MessageBox("Please fill in all details", "Info", wx.OK | wx.ICON_WARNING)
+		if self.txtID.GetValue() == '' :
+			wx.MessageBox("Please fill in the StudentID field", "Info", wx.OK | wx.ICON_WARNING)
+			self.txtID.SetFocus()
+		elif self.txtName.GetValue() == '':
+			wx.MessageBox("Please fill in the Name field", "Info", wx.OK | wx.ICON_WARNING)
+			self.txtName.SetFocus()
+		elif self.txtDegree.GetValue() == '':
+			wx.MessageBox("Please fill in the Degree field", "Info", wx.OK | wx.ICON_WARNING)
+			self.txtDegree.SetFocus()
 		else:
 			persons.append(Student(self.txtID.GetValue(), self.txtName.GetValue(), self.txtDegree.GetValue()))
 			print persons[-1]
-			self.txtID.Clear()
-			self.txtName.Clear()
-			self.txtDegree.Clear()
+			self.Reset()
+
+	def Reset(self):
+		self.txtID.Clear()
+		self.txtName.Clear()
+		self.txtDegree.Clear()		
 
 def main():
 	app = wx.App()
