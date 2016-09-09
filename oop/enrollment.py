@@ -63,10 +63,15 @@ class enrollment(wx.Frame):
 		btnAdd = wx.Button(panel, label="Add Enrollment")
 		btnAdd.Bind(wx.EVT_BUTTON, self.AddEnrollment)
 
-		fgs.AddMany([(labelID), (self.txtID, 1, wx.EXPAND), 
+		btnCancel = wx.Button(panel, label="Close")
+		btnCancel.Bind(wx.EVT_BUTTON, self.OnQuit)
+
+		fgs.AddMany([
+			(labelID), (self.txtID, 1, wx.EXPAND), 
 			(labelName), (self.txtName, 1, wx.EXPAND), 
-			(labelDegree), (self.txtDegree, 1, wx.EXPAND), 
-			(wx.StaticText(panel, label='')), (btnAdd, 1, wx.ALIGN_LEFT)])
+			(labelDegree), (self.txtDegree, 1, wx.EXPAND),
+			(btnAdd, 1, wx.LEFT),  (btnCancel, 2, wx.RIGHT)
+			])
 
 		#fgs.AddGrowableRow(2,1)
 		fgs.AddGrowableCol(1,1)
@@ -81,13 +86,14 @@ class enrollment(wx.Frame):
 		self.Show(True)
 
 	def OnQuit(self,e):
-		self.Close()
+		self.Destroy()
 
 	def AddEnrollment(self,e):
-		self.statusbar.SetStatusText("Clicked on Add Enrolment")
-		self.txtID.SetLabel(persons[0].getStudentID())
-		self.txtDegree.SetLabel(persons[0].getDegree())
-
+		persons.append(Student(self.txtID.GetValue(), self.txtName.GetValue(), self.txtDegree.GetValue()))
+		print persons[-1]
+		self.txtID.Clear()
+		self.txtName.Clear()
+		self.txtDegree.Clear()
 
 def main():
 	app = wx.App()
@@ -98,8 +104,8 @@ if __name__ == '__main__':
 
 	#initiate a student
 	persons = []
-	persons.append(Student('Cameron', 'U2314313', "Social Science"))
-	persons.append(PhDStudent('Simon', 'U9012334', 'Computer Science', 'Impact of Compter on mice reproduction'))
+	'''
+	persons.append(PhDStudent('Simon', 'U9012334', 'Computer Science', 'Impact of Compter on mice reproduction'))	
 
 	#initiate new courses
 	courses = [course("BUSN1001", "Financial Accounting"), course("ECON1101","Microeconomics")]
@@ -109,5 +115,6 @@ if __name__ == '__main__':
 
 	#enrol student into ECON1101
 	persons[1].enroll(courses[1])
+	'''
 
 	main()
