@@ -89,11 +89,15 @@ class enrollment(wx.Frame):
 		self.Destroy()
 
 	def AddEnrollment(self,e):
-		persons.append(Student(self.txtID.GetValue(), self.txtName.GetValue(), self.txtDegree.GetValue()))
-		print persons[-1]
-		self.txtID.Clear()
-		self.txtName.Clear()
-		self.txtDegree.Clear()
+
+		if self.txtID.GetValue() == '' or self.txtName.GetValue() == '' or self.txtDegree.GetValue() == '':
+			wx.MessageBox("Please fill in all details", "Info", wx.OK | wx.ICON_WARNING)
+		else:
+			persons.append(Student(self.txtID.GetValue(), self.txtName.GetValue(), self.txtDegree.GetValue()))
+			print persons[-1]
+			self.txtID.Clear()
+			self.txtName.Clear()
+			self.txtDegree.Clear()
 
 def main():
 	app = wx.App()
