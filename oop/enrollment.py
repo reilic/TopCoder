@@ -50,15 +50,17 @@ class enrollment(wx.Frame):
 		box = wx.BoxSizer(wx.HORIZONTAL)
 
 		#row = 3, col = 2, gap is 9 and 25
-		fgs = wx.FlexGridSizer(4, 2, 9, 25)
+		fgs = wx.FlexGridSizer(6, 2, 9, 25)
 
 		labelID = wx.StaticText(panel, label='Student ID')
 		labelName = wx.StaticText(panel, label='Student Name')
 		labelDegree = wx.StaticText(panel, label='Degree')
+		self.labelSupervisor = wx.StaticText(panel, label="Supervisor")
 
 		self.txtID = wx.TextCtrl(panel)
 		self.txtName = wx.TextCtrl(panel)	
 		self.txtDegree = wx.TextCtrl(panel)
+		self.txtSupervisor = wx.TextCtrl(panel)
 
 		btnAdd = wx.Button(panel, label="Add Enrollment")
 		btnAdd.Bind(wx.EVT_BUTTON, self.AddEnrollment)
@@ -66,10 +68,16 @@ class enrollment(wx.Frame):
 		btnCancel = wx.Button(panel, label="Close")
 		btnCancel.Bind(wx.EVT_BUTTON, self.OnQuit)
 
+		self.chkMaster= wx.CheckBox(panel, label ='Master Student')
+		self.chkMaster.Bind(wx.EVT_CHECKBOX, self.OnCheckBox, self.chkMaster)
+		self.chkMaster.SetValue(True)
+
 		fgs.AddMany([
+			(wx.StaticText(panel),1,wx.EXPAND),(self.chkMaster, 1, wx.ALIGN_RIGHT),
 			(labelID), (self.txtID, 1, wx.EXPAND), 
 			(labelName), (self.txtName, 1, wx.EXPAND), 
 			(labelDegree), (self.txtDegree, 1, wx.EXPAND),
+			(self.labelSupervisor), (self.txtSupervisor, 1, wx.EXPAND),
 			(btnAdd, 1, wx.LEFT | wx.ALIGN_LEFT),  (btnCancel, 2, wx.ALIGN_RIGHT)
 			])
 
@@ -88,6 +96,14 @@ class enrollment(wx.Frame):
 	def OnQuit(self,e):
 		self.Destroy()
 
+	def OnCheckBox(self,e):
+		if self.chkMaster.IsChecked():
+			self.labelSupervisor.Show(True)
+			self.txtSupervisor.Show(True)
+		else:
+			self.labelSupervisor.Show(False)
+			self.txtSupervisor.Show(False)
+
 	def AddEnrollment(self,e):
 
 		if self.txtID.GetValue() == '' :
@@ -99,15 +115,22 @@ class enrollment(wx.Frame):
 		elif self.txtDegree.GetValue() == '':
 			wx.MessageBox("Please fill in the Degree field", "Info", wx.OK | wx.ICON_WARNING)
 			self.txtDegree.SetFocus()
+		elif self.txtSupervisor.GetValue() == '' and self.chkMaster.IsChecked():
+			wx.MessageBox("Please fill in the Supervisor field", "Info", wx.OK | wx.ICON_WARNING)
+			self.txtSupervisor.SetFocus()			
 		else:
-			persons.append(Student(self.txtID.GetValue(), self.txtName.GetValue(), self.txtDegree.GetValue()))
+			if self.chkMaster.IsChecked():
+				persons.append(MasterStudent(self.txtID.GetValue(), self.txtName.GetValue(), self.txtDegree.GetValue(),self.txtSupervisor.GetValue()))
+			else:
+				persons.append(Student(self.txtID.GetValue(), self.txtName.GetValue(), self.txtDegree.GetValue()))
 			print persons[-1]
 			self.Reset()
 
 	def Reset(self):
 		self.txtID.Clear()
 		self.txtName.Clear()
-		self.txtDegree.Clear()		
+		self.txtDegree.Clear()
+		self.txtSupervisor.Clear()
 
 def main():
 	app = wx.App()
@@ -119,8 +142,6 @@ if __name__ == '__main__':
 	#initiate a student
 	persons = []
 	'''
-	persons.append(PhDStudent('Simon', 'U9012334', 'Computer Science', 'Impact of Compter on mice reproduction'))	
-
 	#initiate new courses
 	courses = [course("BUSN1001", "Financial Accounting"), course("ECON1101","Microeconomics")]
 
