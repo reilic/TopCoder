@@ -50,7 +50,7 @@ class enrollment(wx.Frame):
 		box = wx.BoxSizer(wx.HORIZONTAL)
 
 		#row = 3, col = 2, gap is 9 and 25
-		fgs = wx.FlexGridSizer(6, 2, 9, 25)
+		fgs = wx.FlexGridSizer(7, 2, 9, 25)
 
 		labelID = wx.StaticText(panel, label='Student ID')
 		labelName = wx.StaticText(panel, label='Student Name')
@@ -72,13 +72,16 @@ class enrollment(wx.Frame):
 		self.chkMaster.Bind(wx.EVT_CHECKBOX, self.OnCheckBox, self.chkMaster)
 		self.chkMaster.SetValue(True)
 
+		self.lstbox = wx.ListBox(panel, -1)
+
 		fgs.AddMany([
 			(wx.StaticText(panel),1,wx.EXPAND),(self.chkMaster, 1, wx.ALIGN_RIGHT),
 			(labelID), (self.txtID, 1, wx.EXPAND), 
 			(labelName), (self.txtName, 1, wx.EXPAND), 
 			(labelDegree), (self.txtDegree, 1, wx.EXPAND),
 			(self.labelSupervisor), (self.txtSupervisor, 1, wx.EXPAND),
-			(btnAdd, 1, wx.LEFT | wx.ALIGN_LEFT),  (btnCancel, 2, wx.ALIGN_RIGHT)
+			(btnAdd, 1, wx.LEFT | wx.ALIGN_LEFT),  (btnCancel, 2, wx.ALIGN_RIGHT),
+			(self.lstbox,1,wx.EXPAND)
 			])
 
 		#fgs.AddGrowableRow(2,1)
@@ -107,24 +110,29 @@ class enrollment(wx.Frame):
 	def AddEnrollment(self,e):
 
 		if self.txtID.GetValue() == '' :
-			wx.MessageBox("Please fill in the StudentID field", "Info", wx.OK | wx.ICON_WARNING)
+			self.DisplayMsgBox("Student ID")
 			self.txtID.SetFocus()
 		elif self.txtName.GetValue() == '':
-			wx.MessageBox("Please fill in the Name field", "Info", wx.OK | wx.ICON_WARNING)
+			self.DisplayMsgBox("Name")
 			self.txtName.SetFocus()
 		elif self.txtDegree.GetValue() == '':
-			wx.MessageBox("Please fill in the Degree field", "Info", wx.OK | wx.ICON_WARNING)
+			self.DisplayMsgBox("Degree")
 			self.txtDegree.SetFocus()
 		elif self.txtSupervisor.GetValue() == '' and self.chkMaster.IsChecked():
-			wx.MessageBox("Please fill in the Supervisor field", "Info", wx.OK | wx.ICON_WARNING)
+			self.DisplayMsgBox("Supervisor")
 			self.txtSupervisor.SetFocus()			
 		else:
 			if self.chkMaster.IsChecked():
-				persons.append(MasterStudent(self.txtID.GetValue(), self.txtName.GetValue(), self.txtDegree.GetValue(),self.txtSupervisor.GetValue()))
+				persons.append(MasterStudent(self.txtName.GetValue(), self.txtID.GetValue(), self.txtDegree.GetValue(),self.txtSupervisor.GetValue()))
 			else:
-				persons.append(Student(self.txtID.GetValue(), self.txtName.GetValue(), self.txtDegree.GetValue()))
+				persons.append(Student(self.txtName.GetValue(), self.txtID.GetValue(), self.txtDegree.GetValue()))
+			
 			print persons[-1]
+			self.lstbox.Append(persons[-1].getStudentID() + ' - '  + persons[-1].name)
 			self.Reset()
+
+	def DisplayMsgBox(self, field):
+			wx.MessageBox("Please fill in the %s field" % field, "Info", wx.OK | wx.ICON_WARNING)
 
 	def Reset(self):
 		self.txtID.Clear()
