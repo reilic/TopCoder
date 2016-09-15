@@ -5,27 +5,76 @@ from student import MasterStudent
 from course import course
 import wx
 
+class TabOne(wx.Panel):
+	def __init__(self, parent):
+		wx.Panel.__init__(self, parent)
+		
+		vbox = wx.BoxSizer(wx.VERTICAL)
+
+		#hbox1
+		hbox1= wx.BoxSizer(wx.VERTICAL)
+
+		labelID = wx.StaticText(self, 1, 'Student ID', (20,20))
+		txtID = wx.TextCtrl(self, 0, "", (120,20))
+
+		hbox1.Add(labelID, 1, wx.EXPAND)
+		hbox1.Add(txtID, 1, wx.EXPAND)
+
+		#hbox2
+		hbox2= wx.BoxSizer(wx.VERTICAL)
+
+		labelName = wx.StaticText(self, 1, 'Student Name', (20,50))
+		txtName = wx.TextCtrl(self, 0, "", (120,50))
+
+		hbox2.Add(labelName, 1, wx.EXPAND)
+		hbox2.Add(txtName, 1, wx.EXPAND)
+
+		#hbox3
+		hbox3 = wx.BoxSizer(wx.VERTICAL)
+
+		labelDegree = wx.StaticText(self, 1,'Degree', (20, 80))
+		txtDegree = wx.TextCtrl(self, 0, '', (120, 80))
+
+		hbox3.Add(labelDegree, 1, wx.EXPAND)
+		hbox3.Add(txtDegree, 1, wx.EXPAND)
+
+		#add to vbox
+		vbox.Add(hbox1)
+		vbox.Add(hbox2)
+		vbox.Add(hbox3)
+
+class TabTwo(wx.Panel):
+	def __init__(self, parent):
+		wx.Panel.__init__(self, parent)
+		t = wx.StaticText(self, -1, "Second Tab", (20,20))
+
+class TabThree(wx.Panel):
+	def __init__(self, parent):
+		wx.Panel.__init__(self, parent)
+		t = wx.StaticText(self, -1, "Third Tab", (20,20))
 
 class enrollment(wx.Frame):
 
 	def __init__(self,*args, **kwargs):
 		super(enrollment, self).__init__(*args, **kwargs)
 
-		self.InitUI()
-
-	def InitUI(self):
-
-		#self.statusbar = self.CreateStatusBar() #create status bar
-		#self.statusbar.SetStatusText("Ready")
-
 		panel = wx.Panel(self)
-		#panel.SetBackgroundColour('#4f5049')
+		nb = wx.Notebook(panel)
 
-		box = wx.BoxSizer(wx.HORIZONTAL)
+		tab1 = TabOne(nb)
+		tab2 = TabTwo(nb)
+		tab3 = TabThree(nb)
 
-		#row = 3, col = 2, gap is 9 and 25
-		fgs = wx.FlexGridSizer(7, 2, 9, 25)
+		nb.AddPage(tab1, "Student")
+		nb.AddPage(tab2, "Course")
+		nb.AddPage(tab3, "Enrollment")
 
+		sizer = wx.BoxSizer()
+
+		sizer.Add(nb, 1, wx.EXPAND | wx.ALL, 10)
+		panel.SetSizer(sizer)
+
+		'''
 		labelID = wx.StaticText(panel, label='Student ID')
 		labelName = wx.StaticText(panel, label='Student Name')
 		labelDegree = wx.StaticText(panel, label='Degree')
@@ -42,32 +91,13 @@ class enrollment(wx.Frame):
 		#btnCancel = wx.Button(panel, label="Close")
 		#btnCancel.Bind(wx.EVT_BUTTON, self.OnQuit)
 
-		hbox = wx.BoxSizer(wx.VERTICAL)
-		hbox.Add(btnAdd, 1, wx.EXPAND)
-
 		self.chkMaster= wx.CheckBox(panel, label ='Master Student')
 		self.chkMaster.Bind(wx.EVT_CHECKBOX, self.OnCheckBox, self.chkMaster)
 		self.chkMaster.SetValue(True)
 
 		self.studenlisttbox = wx.ListBox(panel, 1)
 		self.courselistbox = wx.ListBox(panel, 1)
-
-		fgs.AddMany([
-			(wx.StaticText(panel),1,wx.EXPAND),(self.chkMaster, 1, wx.ALIGN_RIGHT),
-			(labelID), (self.txtID, 1, wx.EXPAND), 
-			(labelName), (self.txtName, 1, wx.EXPAND), 
-			(labelDegree), (self.txtDegree, 1, wx.EXPAND),
-			(self.labelSupervisor), (self.txtSupervisor, 1, wx.EXPAND),
-			(wx.StaticText(panel),1,wx.EXPAND),  (hbox, 1, wx.EXPAND),
-			(self.studenlisttbox,1,wx.EXPAND), (self.courselistbox,1,wx.EXPAND)
-			])
-
-		#fgs.AddGrowableRow(2,1)
-		fgs.AddGrowableCol(1,1)
-
-		box.Add(fgs, proportion = 1, flag = wx.ALL|wx.EXPAND, border=15)
-
-		panel.SetSizer(box)
+		'''
 
 		self.SetSize((500,400))
 		self.SetTitle("Enrollment System")
