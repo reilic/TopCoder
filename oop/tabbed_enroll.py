@@ -6,6 +6,7 @@ from course import course
 import wx
 
 class TabOne(wx.Panel):
+
 	def __init__(self, parent):
 		wx.Panel.__init__(self, parent)
 		
@@ -15,43 +16,67 @@ class TabOne(wx.Panel):
 		hbox1= wx.BoxSizer(wx.VERTICAL)
 
 		labelID = wx.StaticText(self, 1, 'Student ID', (20,20))
-		txtID = wx.TextCtrl(self, 0, "", (120,20))
+		self.txtID = wx.TextCtrl(self, 0, "", (120,20))
 
 		hbox1.Add(labelID, 1, wx.EXPAND)
-		hbox1.Add(txtID, 1, wx.EXPAND)
+		hbox1.Add(self.txtID, 1, wx.EXPAND)
 
 		#hbox2
 		hbox2= wx.BoxSizer(wx.VERTICAL)
 
 		labelName = wx.StaticText(self, 1, 'Student Name', (20,50))
-		txtName = wx.TextCtrl(self, 0, "", (120,50))
+		self.txtName = wx.TextCtrl(self, 0, "", (120,50))
 
 		hbox2.Add(labelName, 1, wx.EXPAND)
-		hbox2.Add(txtName, 1, wx.EXPAND)
+		hbox2.Add(self.txtName, 1, wx.EXPAND)
 
 		#hbox3
 		hbox3 = wx.BoxSizer(wx.VERTICAL)
 
 		labelDegree = wx.StaticText(self, 1,'Degree', (20, 80))
-		txtDegree = wx.TextCtrl(self, 0, '', (120, 80))
+		self.txtDegree = wx.TextCtrl(self, 0, '', (120, 80))
 
 		hbox3.Add(labelDegree, 1, wx.EXPAND)
-		hbox3.Add(txtDegree, 1, wx.EXPAND)
+		hbox3.Add(self.txtDegree, 1, wx.EXPAND)
+
+		#hbox4
+		hbox4 = wx.BoxSizer(wx.VERTICAL)
+
+		self.bAdd = wx.Button(self, 1, "Add Student", (120,110))
+
+		hbox4.Add(self.bAdd)
 
 		#add to vbox
 		vbox.Add(hbox1)
 		vbox.Add(hbox2)
 		vbox.Add(hbox3)
+		vbox.Add(hbox4)
+
+	def BindBtnAdd(self, handler):
+		self.bAdd.Bind(wx.EVT_BUTTON, handler)
+
+	def DisplayMsgBox(self, field):
+			wx.MessageBox("Please fill in the %s field" % field, "Info", wx.OK | wx.ICON_WARNING)
+
+	def Reset(self):
+		self.txtID.Clear()
+		self.txtName.Clear()
+		self.txtDegree.Clear()
 
 class TabTwo(wx.Panel):
 	def __init__(self, parent):
 		wx.Panel.__init__(self, parent)
 		t = wx.StaticText(self, -1, "Second Tab", (20,20))
+		self.lbStudent = wx.ListBox(self, 1, (40,40))
+
+	def UpdateStudentListbox(self):
+		self.lbStudent.Append("test")
 
 class TabThree(wx.Panel):
 	def __init__(self, parent):
 		wx.Panel.__init__(self, parent)
 		t = wx.StaticText(self, -1, "Third Tab", (20,20))
+		self.courselistbox = wx.ListBox(self, 1, (40,40))
 
 class enrollment(wx.Frame):
 
@@ -61,91 +86,28 @@ class enrollment(wx.Frame):
 		panel = wx.Panel(self)
 		nb = wx.Notebook(panel)
 
-		tab1 = TabOne(nb)
-		tab2 = TabTwo(nb)
-		tab3 = TabThree(nb)
+		self.tab1 = TabOne(nb)
+		self.tab2 = TabTwo(nb)
+		self.tab3 = TabThree(nb)
 
-		nb.AddPage(tab1, "Student")
-		nb.AddPage(tab2, "Course")
-		nb.AddPage(tab3, "Enrollment")
+		nb.AddPage(self.tab1, "Student")
+		nb.AddPage(self.tab2, "Course")
+		nb.AddPage(self.tab3, "Enrollment")
 
 		sizer = wx.BoxSizer()
 
 		sizer.Add(nb, 1, wx.EXPAND | wx.ALL, 10)
 		panel.SetSizer(sizer)
 
-		'''
-		labelID = wx.StaticText(panel, label='Student ID')
-		labelName = wx.StaticText(panel, label='Student Name')
-		labelDegree = wx.StaticText(panel, label='Degree')
-		self.labelSupervisor = wx.StaticText(panel, label="Supervisor")
-
-		self.txtID = wx.TextCtrl(panel)
-		self.txtName = wx.TextCtrl(panel)	
-		self.txtDegree = wx.TextCtrl(panel)
-		self.txtSupervisor = wx.TextCtrl(panel)
-
-		btnAdd = wx.Button(panel, label="Add Student")
-		btnAdd.Bind(wx.EVT_BUTTON, self.AddStudent)
-
-		#btnCancel = wx.Button(panel, label="Close")
-		#btnCancel.Bind(wx.EVT_BUTTON, self.OnQuit)
-
-		self.chkMaster= wx.CheckBox(panel, label ='Master Student')
-		self.chkMaster.Bind(wx.EVT_CHECKBOX, self.OnCheckBox, self.chkMaster)
-		self.chkMaster.SetValue(True)
-
-		self.studenlisttbox = wx.ListBox(panel, 1)
-		self.courselistbox = wx.ListBox(panel, 1)
-		'''
+		self.tab1.bAdd.Bind(wx.EVT_BUTTON, self.AddStudent_handler)
 
 		self.SetSize((500,400))
 		self.SetTitle("Enrollment System")
 		self.Centre()
 		self.Show(True)
 
-	def OnQuit(self,e):
-		self.Destroy()
-
-	def OnCheckBox(self,e):
-		if self.chkMaster.IsChecked():
-			self.labelSupervisor.Show(True)
-			self.txtSupervisor.Show(True)
-		else:
-			self.labelSupervisor.Show(False)
-			self.txtSupervisor.Show(False)
-
-	def AddStudent(self,e):
-
-		if self.txtID.GetValue() == '' :
-			self.DisplayMsgBox("Student ID")
-			self.txtID.SetFocus()
-		elif self.txtName.GetValue() == '':
-			self.DisplayMsgBox("Name")
-			self.txtName.SetFocus()
-		elif self.txtDegree.GetValue() == '':
-			self.DisplayMsgBox("Degree")
-			self.txtDegree.SetFocus()
-		elif self.txtSupervisor.GetValue() == '' and self.chkMaster.IsChecked():
-			self.DisplayMsgBox("Supervisor")
-			self.txtSupervisor.SetFocus()			
-		else:
-			if self.chkMaster.IsChecked():
-				persons.append(MasterStudent(self.txtName.GetValue(), self.txtID.GetValue(), self.txtDegree.GetValue(),self.txtSupervisor.GetValue()))
-			else:
-				persons.append(Student(self.txtName.GetValue(), self.txtID.GetValue(), self.txtDegree.GetValue()))
-			
-			self.studenlisttbox.Append(persons[-1].getStudentID() + ' - '  + persons[-1].name)
-			self.Reset()
-
-	def DisplayMsgBox(self, field):
-			wx.MessageBox("Please fill in the %s field" % field, "Info", wx.OK | wx.ICON_WARNING)
-
-	def Reset(self):
-		self.txtID.Clear()
-		self.txtName.Clear()
-		self.txtDegree.Clear()
-		self.txtSupervisor.Clear()
+	def AddStudent_handler(self,e):
+		self.tab2.UpdateStudentListbox()
 
 def main():
 	app = wx.App()
