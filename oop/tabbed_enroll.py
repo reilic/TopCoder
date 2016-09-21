@@ -13,7 +13,7 @@ class TabOne(wx.Panel):
 		vbox = wx.BoxSizer(wx.VERTICAL)
 
 		#hbox1
-		hbox1= wx.BoxSizer(wx.VERTICAL)
+		hbox1= wx.BoxSizer(wx.HORIZONTAL)
 
 		labelID = wx.StaticText(self, 1, 'Student ID', (20,20))
 		self.txtID = wx.TextCtrl(self, 0, "", (120,20))
@@ -22,7 +22,7 @@ class TabOne(wx.Panel):
 		hbox1.Add(self.txtID, 1, wx.EXPAND)
 
 		#hbox2
-		hbox2= wx.BoxSizer(wx.VERTICAL)
+		hbox2= wx.BoxSizer(wx.HORIZONTAL)
 
 		labelName = wx.StaticText(self, 1, 'Student Name', (20,50))
 		self.txtName = wx.TextCtrl(self, 0, "", (120,50))
@@ -31,7 +31,7 @@ class TabOne(wx.Panel):
 		hbox2.Add(self.txtName, 1, wx.EXPAND)
 
 		#hbox3
-		hbox3 = wx.BoxSizer(wx.VERTICAL)
+		hbox3 = wx.BoxSizer(wx.HORIZONTAL)
 
 		labelDegree = wx.StaticText(self, 1,'Degree', (20, 80))
 		self.txtDegree = wx.TextCtrl(self, 0, '', (120, 80))
@@ -40,11 +40,14 @@ class TabOne(wx.Panel):
 		hbox3.Add(self.txtDegree, 1, wx.EXPAND)
 
 		#hbox4
-		hbox4 = wx.BoxSizer(wx.VERTICAL)
+		hbox4 = wx.BoxSizer(wx.HORIZONTAL)
 
 		self.bAdd = wx.Button(self, 1, "Add Student", (120,110))
 
+		self.bClear = wx.Button(self, 1, "Clear Fields", (220,110))
+
 		hbox4.Add(self.bAdd)
+		hbox4.Add(self.bClear)
 
 		#add to vbox
 		vbox.Add(hbox1)
@@ -52,8 +55,11 @@ class TabOne(wx.Panel):
 		vbox.Add(hbox3)
 		vbox.Add(hbox4)
 
-	def BindBtnAdd(self, handler):
+	def bAdd_Bind(self, handler):
 		self.bAdd.Bind(wx.EVT_BUTTON, handler)
+
+	def bClear_Bind(self, handler):
+		self.bClear.Bind(wx.EVT_BUTTON, handler)
 
 	def DisplayMsgBox(self, field):
 			wx.MessageBox("Please fill in the %s field" % field, "Info", wx.OK | wx.ICON_WARNING)
@@ -67,16 +73,24 @@ class TabTwo(wx.Panel):
 	def __init__(self, parent):
 		wx.Panel.__init__(self, parent)
 		t = wx.StaticText(self, -1, "Second Tab", (20,20))
-		self.lbStudent = wx.ListBox(self, 1, (40,40))
-
-	def UpdateStudentListbox(self):
-		self.lbStudent.Append("test")
-
+		
 class TabThree(wx.Panel):
 	def __init__(self, parent):
 		wx.Panel.__init__(self, parent)
-		t = wx.StaticText(self, -1, "Third Tab", (20,20))
-		self.courselistbox = wx.ListBox(self, 1, (40,40))
+
+		vbox = wx.BoxSizer(wx.VERTICAL)
+
+		#hbox
+
+		hbox1 = wx.BoxSizer(wx.HORIZONTAL)
+
+		self.lbStudent = wx.ListBox(self, 1, (40,40))
+
+		hbox1.Add(self.lbStudent)
+
+	def lbStudent_Update(self, name):
+		self.lbStudent.Append(name)
+
 
 class enrollment(wx.Frame):
 
@@ -99,15 +113,27 @@ class enrollment(wx.Frame):
 		sizer.Add(nb, 1, wx.EXPAND | wx.ALL, 10)
 		panel.SetSizer(sizer)
 
-		self.tab1.bAdd.Bind(wx.EVT_BUTTON, self.AddStudent_handler)
+		self.sb = self.CreateStatusBar(style = wx.NO_BORDER)
+		self.sb.SetStatusStyles([wx.SB_FLAT])
+		
+
+		self.tab1.bAdd_Bind(self.bAdd_handler)
+		self.tab1.bClear_Bind(self.bClear_handler)
 
 		self.SetSize((500,400))
 		self.SetTitle("Enrollment System")
 		self.Centre()
 		self.Show(True)
 
-	def AddStudent_handler(self,e):
-		self.tab2.UpdateStudentListbox()
+	def bAdd_handler(self,e):
+		self.tab3.lbStudent_Update(self.tab1.txtName.GetValue())
+		self.SetStatusbar('Student Added: ' + self.tab1.txtName.GetValue())
+
+	def bClear_handler(self,e):
+		self.tab1.Reset()
+
+	def SetStatusbar(self, value):
+		self.sb.SetStatusText(value)
 
 def main():
 	app = wx.App()
