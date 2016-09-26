@@ -7,6 +7,9 @@ class Person(object):
 	def __init__(self, n):
 		self.name = n
 
+	def getName(self):
+		return self.name
+
 	def __str__(self):
 		return "%15s%s\n" % ("Name: ", self.name)
 
