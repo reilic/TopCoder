@@ -15,3 +15,6 @@ class course(object):
 
 	def __str__(self):
 		return self.id + " " + self.name
+
+	def getName(self):
+		return self.name	

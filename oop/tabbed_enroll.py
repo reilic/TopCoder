@@ -42,9 +42,9 @@ class TabOne(wx.Panel):
 		#hbox4
 		hbox4 = wx.BoxSizer(wx.HORIZONTAL)
 
-		self.bStudentAdd = wx.Button(self, 1, "Add Student", (120,110))
+		self.bStudentAdd = wx.Button(self, 1, "Add Student", (250,250))
 
-		self.bStudentClear = wx.Button(self, 1, "Clear Fields", (220,110))
+		self.bStudentClear = wx.Button(self, 1, "Clear Fields", (350,250))
 
 		hbox4.Add(self.bStudentAdd)
 		hbox4.Add(self.bStudentClear)
@@ -96,9 +96,9 @@ class TabTwo(wx.Panel):
 		#hbox4
 		hbox4 = wx.BoxSizer(wx.HORIZONTAL)
 
-		self.bCourseAdd = wx.Button(self, 1, "Add Course", (120,110))
+		self.bCourseAdd = wx.Button(self, 1, "Add Course", (250,250))
 
-		self.bCourseClear = wx.Button(self, 1, "Clear Fields", (220,110))
+		self.bCourseClear = wx.Button(self, 1, "Clear Fields", (350,250))
 
 		hbox4.Add(self.bCourseAdd)
 		hbox4.Add(self.bCourseClear)
@@ -107,7 +107,17 @@ class TabTwo(wx.Panel):
 		vbox.Add(hbox1)
 		vbox.Add(hbox2)
 		vbox.Add(hbox4)
-		
+
+	def bCourseAdd_Bind(self, handler):
+		self.bCourseAdd.Bind(wx.EVT_BUTTON,handler)
+
+	def bCourseClear_Bind(self, handler):
+		self.bCourseClear.Bind(wx.EVT_BUTTON,handler)
+
+	def Reset(self):
+		self.txtCourseID.Clear()
+		self.txtCourseName.Clear()
+
 class TabThree(wx.Panel):
 	def __init__(self, parent):
 		wx.Panel.__init__(self, parent)
@@ -119,22 +129,28 @@ class TabThree(wx.Panel):
 		hbox1 = wx.BoxSizer(wx.HORIZONTAL)
 
 		labelStudent = wx.StaticText(self, 1, 'Student List', (40,20))
+		labelCourse  = wx.StaticText(self, 1, 'Course List', (40,120))
 
 		hbox1.Add(labelStudent, 1, wx.EXPAND)
+		hbox1.Add(labelCourse, 1, wx.EXPAND)
 
 		#hbox2
 
 		hbox2 = wx.BoxSizer(wx.HORIZONTAL)
 
 		self.lbStudent = wx.ListBox(self, 1, (40,40))
+		self.lbCourse = wx.ListBox(self, 1, (40,140))
 
 		hbox2.Add(self.lbStudent)
+		hbox2.Add(self.lbCourse)
 
 		vbox.Add(hbox2)
 
 	def lbStudent_Update(self, p):
 		self.lbStudent.Append(p.getName())
 
+	def lbCourse_Update(self, p):
+		self.lbCourse.Append(p.getName())		
 
 class enrollment(wx.Frame):
 
@@ -162,6 +178,10 @@ class enrollment(wx.Frame):
 		#bind event handlers
 		self.tab1.bStudentAdd_Bind(self.bStudentAdd_handler)
 		self.tab1.bStudentClear_Bind(self.bStudentClear_handler)
+		self.tab2.bCourseAdd_Bind(self.bCourseAdd_handler)
+		self.tab2.bCourseClear_Bind(self.bCourseClear_handler)
+		
+
 
 		self.SetSize((500,400))
 		self.SetTitle("Enrollment System")
@@ -169,20 +189,24 @@ class enrollment(wx.Frame):
 		self.Show(True)
 
 	def bStudentAdd_handler(self,e):
-		
 		persons.append(Student(self.tab1.txtName.GetValue(),self.tab1.txtID.GetValue(),self.tab1.txtDegree.GetValue()))
-		
 		self.tab3.lbStudent_Update(persons[-1])
-
-		print persons[-1]
-		
 		self.SetStatusbar('Student Added: ' + self.tab1.txtName.GetValue())
-
 		self.tab1.Reset()
 
 	def bStudentClear_handler(self,e):
 		self.tab1.Reset()
 		self.SetStatusbar('')
+
+	def bCourseAdd_handler(self,e):
+		courses.append(course(self.tab2.txtCourseID.GetValue(), self.tab2.txtCourseName.GetValue()))
+		self.tab3.lbCourse_Update(courses[-1])
+		self.SetStatusbar('Course Added: ' + self.tab2.txtCourseName.GetValue())
+		self.tab2.Reset()
+
+	def bCourseClear_handler(self,e):
+		print 'd'
+
 
 	def SetStatusbar(self, value):
 		self.sb.SetStatusText(value)
@@ -194,10 +218,11 @@ def main():
 
 if __name__ == '__main__':
 
-	#initiate a student
+	#initiation
 	persons = []
+	courses = []
 	'''
-	#initiate new courses
+	#initiate courses
 	courses = [course("BUSN1001", "Financial Accounting"), course("ECON1101","Microeconomics")]
 
 	#enrol student into BUSN1001
